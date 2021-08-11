@@ -37,7 +37,7 @@ export default function Home() {
       setAlbumURL(formik.values.albumURL);
       axios
         .get("/api/get-cover-color", {
-          params: { albumURL },
+          params: { albumURL: formik.values.albumURL },
         })
         .then(({ data }) => {
           setColor(data.background);
