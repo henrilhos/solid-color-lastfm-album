@@ -40,7 +40,7 @@ export default function Home() {
           params: { albumURL: formik.values.albumURL },
         })
         .then(({ data }) => {
-          setColor(data.background);
+          setColor(data.color);
         })
         .catch((err) => console.error(err));
     }
