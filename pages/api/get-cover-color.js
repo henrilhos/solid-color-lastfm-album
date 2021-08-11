@@ -14,7 +14,15 @@ export default async function handler(req, res) {
     .replace("background-image: url(", "")
     .replace(");", "");
   const palette = await Vibrant.from(image).maxColorCount(32).getPalette();
-  const color = palette.LightVibrant.hex;
 
-  res.status(200).json({ color });
+  res.status(200).json({
+    colors: [
+      palette.DarkMuted.hex,
+      palette.DarkVibrant.hex,
+      palette.LightMuted.hex,
+      palette.LightVibrant.hex,
+      palette.Muted.hex,
+      palette.Vibrant.hex,
+    ],
+  });
 }

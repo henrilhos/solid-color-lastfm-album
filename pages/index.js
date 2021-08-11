@@ -9,7 +9,7 @@ import { SEO } from "../components/SEO";
 
 export default function Home() {
   const [step, setStep] = useState(0);
-  const [color, setColor] = useState();
+  const [colors, setColors] = useState([]);
   const [albumURL, setAlbumURL] = useState("");
 
   const validationSchema = yup.object({
@@ -29,7 +29,7 @@ export default function Home() {
     formik.setFieldTouched("albumURL");
 
     if (!formik.errors.albumURL) {
-      if (formik.values.albumURL === albumURL && color) {
+      if (formik.values.albumURL === albumURL && colors) {
         setStep(1);
         return;
       }
@@ -40,7 +40,8 @@ export default function Home() {
           params: { albumURL: formik.values.albumURL },
         })
         .then(({ data }) => {
-          setColor(data.color);
+          console.log(data);
+          setColors(data.colors);
         })
         .catch((err) => console.error(err));
     }
@@ -49,8 +50,8 @@ export default function Home() {
   const onBackClick = () => setStep(0);
 
   useEffect(() => {
-    if (color) setStep(1);
-  }, [color]);
+    if (colors && colors.length > 0) setStep(1);
+  }, [colors]);
 
   return (
     <div style={{ height: "100%", display: "flex", alignItems: "center" }}>
@@ -61,7 +62,9 @@ export default function Home() {
             <SearchStep formik={formik} onCreateClick={onCreateClick} />
           )}
 
-          {step === 1 && <ImageStep color={color} onBackClick={onBackClick} />}
+          {step === 1 && (
+            <ImageStep colors={colors} onBackClick={onBackClick} />
+          )}
         </Grid>
       </Container>
     </div>

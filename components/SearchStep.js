@@ -20,7 +20,6 @@ export const SearchStep = ({ formik, onCreateClick }) => (
       />
     </Grid>
     <Grid item xs={12} style={{ textAlign: "end" }}>
-      {formik.errors.albumURL}
       <Button variant="contained" color="primary" onClick={onCreateClick}>
         Create
       </Button>
